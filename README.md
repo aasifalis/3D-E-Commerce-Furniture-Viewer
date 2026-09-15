@@ -61,6 +61,7 @@ furnish/
 │   ├── products.js     # Fetches data, renders product grid
 │   ├── basket.js       # Add/remove/total logic
 │   ├── viewer.js       # Three.js scene and GLTFLoader
+│   ├── api.js          # Data fetching
 │   └── ar.js           # WebXR hit-test and AR placement
 ├── data/
 │   └── products.json   # Mock product catalogue (API-ready structure)
