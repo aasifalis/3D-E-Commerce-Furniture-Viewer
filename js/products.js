@@ -1,0 +1,38 @@
+import { getProducts } from './api.js';
+
+const products = await getProducts();
+console.log(products);
+
+function formatPrice(amount) {
+  return new Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency: 'GBP'
+  }).format(amount);
+}
+
+function buildCard(product) {
+  const card = document.createElement('article');
+  card.className = 'product-card';
+  card.dataset.productId = product.id;
+
+  const defaultColour = product.colours[0];
+
+  card.innerHTML = `
+    <img class="card__img" src="https://placehold.co/400x300?text=${encodeURIComponent(product.name)}" alt="${product.name}" />      <h2 class="card__name">${product.name}</h2>
+      <p class="card__price">${formatPrice(product.price)}</p>
+      <div class="card__swatches"></div>
+      <a class="card__link" href="viewer.html?id=${product.id}">View product</a>
+    </div>
+  `;
+
+  return card;
+}
+
+const grid = document.getElementById('product-grid');
+const fragment = document.createDocumentFragment();
+
+for (const product of products) {
+  fragment.append(buildCard(product));
+}
+
+grid.replaceChildren(fragment);
