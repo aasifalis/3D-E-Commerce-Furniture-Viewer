@@ -50,3 +50,16 @@ for (const product of products) {
 }
 
 grid.replaceChildren(fragment);
+
+grid.addEventListener('click', (e) => {
+  const swatch = e.target.closest('.swatch');
+  if (!swatch) return;
+
+  const card = swatch.closest('.product-card');
+
+  card.querySelectorAll('.swatch').forEach(s => s.classList.remove('swatch--active'));
+  swatch.classList.add('swatch--active');
+
+  card.querySelector('.card__link').href =
+    `viewer.html?id=${card.dataset.productId}&colour=${encodeURIComponent(swatch.dataset.colourName)}`;
+});

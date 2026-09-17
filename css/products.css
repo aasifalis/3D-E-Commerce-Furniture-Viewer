@@ -59,3 +59,35 @@
 .card__link:hover {
   background: #333;
 }
+
+.swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  outline-offset: 2px;
+}
+
+.swatch:hover {
+  border-color: #666;
+}
+
+.swatch--active {
+  border-color: #1a1a1a;
+}
+
+.swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  cursor: pointer;
+  padding: 0;
+  outline-offset: 2px;
+}
+
+.swatch--active {
+  border-color: #1a1a1a;
+}
