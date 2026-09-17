@@ -1,4 +1,5 @@
 import { getProducts } from './api.js';
+import { addToBasket, updateBasketCount } from './basket.js';
 
 const products = await getProducts();
 console.log(products);
@@ -21,6 +22,7 @@ function buildCard(product) {
       <h2 class="card__name">${product.name}</h2>
       <p class="card__price">${formatPrice(product.price)}</p>
       <div class="card__swatches"></div>
+      <button class="card__add" data-product-id="${product.id}" data-colour="${product.colours[0].name}">Add to basket</button>
       <a class="card__link" href="viewer.html?id=${product.id}">View product</a>
     </div>
   `;
@@ -53,13 +55,19 @@ grid.replaceChildren(fragment);
 
 grid.addEventListener('click', (e) => {
   const swatch = e.target.closest('.swatch');
-  if (!swatch) return;
+  if (swatch) {
+    const card = swatch.closest('.product-card');
+    card.querySelectorAll('.swatch').forEach(s => s.classList.remove('swatch--active'));
+    swatch.classList.add('swatch--active');
+    card.querySelector('.card__add').dataset.colour = swatch.dataset.colourName;
+    card.querySelector('.card__link').href =
+      `viewer.html?id=${card.dataset.productId}&colour=${encodeURIComponent(swatch.dataset.colourName)}`;
+  }
 
-  const card = swatch.closest('.product-card');
-
-  card.querySelectorAll('.swatch').forEach(s => s.classList.remove('swatch--active'));
-  swatch.classList.add('swatch--active');
-
-  card.querySelector('.card__link').href =
-    `viewer.html?id=${card.dataset.productId}&colour=${encodeURIComponent(swatch.dataset.colourName)}`;
+  const addBtn = e.target.closest('.card__add');
+  if (addBtn) {
+    addToBasket(addBtn.dataset.productId, addBtn.dataset.colour);
+    updateBasketCount();
+  }
 });
+

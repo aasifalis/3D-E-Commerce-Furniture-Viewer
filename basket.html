@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roomi — Basket</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/basket.css" />
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Roo<span>mi</span></a>
+      <div class="nav-links">
+        <a href="basket.html">Basket <span id="basket-count">0</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <h1 class="page-title">Your basket</h1>
+    <div id="basket-container">
+      <div id="basket-items"></div>
+      <div id="basket-summary">
+        <p>Total: <span id="basket-total">£0.00</span></p>
+        <button id="view-in-3d">View in 3D</button>
+      </div>
+    </div>
+  </main>
+
+  <script type="module" src="js/basket.js"></script>
+
+</body>
+</html>
