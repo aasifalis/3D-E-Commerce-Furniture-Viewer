@@ -15,17 +15,31 @@ function buildCard(product) {
   card.className = 'product-card';
   card.dataset.productId = product.id;
 
-  const defaultColour = product.colours[0];
-
   card.innerHTML = `
-    <img class="card__img" src="https://placehold.co/400x300?text=${encodeURIComponent(product.name)}" alt="${product.name}" />      <h2 class="card__name">${product.name}</h2>
+    <img class="card__img" src="https://placehold.co/400x300?text=${encodeURIComponent(product.name)}" alt="${product.name}" />
+    <div class="card__body">
+      <h2 class="card__name">${product.name}</h2>
       <p class="card__price">${formatPrice(product.price)}</p>
       <div class="card__swatches"></div>
       <a class="card__link" href="viewer.html?id=${product.id}">View product</a>
     </div>
   `;
 
+  buildSwatches(product.colours, card.querySelector('.card__swatches'));
+
   return card;
+}
+
+function buildSwatches(colours, container) {
+  for (const colour of colours) {
+    const btn = document.createElement('button');
+    btn.className = 'swatch';
+    btn.style.backgroundColor = colour.hex;
+    btn.dataset.colourName = colour.name;
+    btn.dataset.hex = colour.hex;
+    btn.setAttribute('aria-label', colour.name);
+    container.append(btn);
+  }
 }
 
 const grid = document.getElementById('product-grid');
