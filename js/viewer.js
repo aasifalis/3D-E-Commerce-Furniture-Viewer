@@ -2,7 +2,7 @@ import { getProductById } from './api.js';
 import { addToBasket } from './basket.js';
 import { initARTracking } from './ar.js';
 import { trackEvent } from './tracking.js';
-import { escapeHtml, formatPrice, getParam } from './utils.js';
+import { escapeHtml, formatPrice, getParam, productImage } from './utils.js';
 
 const root = document.getElementById('viewer-root');
 
@@ -15,14 +15,20 @@ function renderStars(rating) {
   return '★'.repeat(full) + '☆'.repeat(5 - full);
 }
 
-// Recolour every material whose name starts with "fabric" (see assets/models/CREDITS.md).
+// Recolour every material whose name starts with "fabric" or "finish" (see assets/models/CREDITS.md).
 function applyColourToModel(modelViewer, hex) {
   const materials = modelViewer.model?.materials ?? [];
   for (const material of materials) {
     // Skip unused material variants that haven't been loaded.
-    if (!material.isLoaded || !material.name.toLowerCase().startsWith('fabric')) continue;
+    if (!material.isLoaded || !/^(fabric|finish)/i.test(material.name)) continue;
     material.pbrMetallicRoughness.setBaseColorFactor(hex);
-    material.sheen?.setSheenColorFactor?.(hex);
+    // Only velvet materials (KHR_materials_sheen) have a sheen colour;
+    // model-viewer throws for materials without one.
+    try {
+      material.setSheenColorFactor(hex);
+    } catch {
+      /* no sheen on this material */
+    }
   }
 }
 
@@ -46,6 +52,7 @@ async function init() {
       ${product.model ? `
         <model-viewer id="model"
           src="${escapeHtml(product.model)}"
+          poster="${escapeHtml(productImage(product, colour.name))}"
           alt="Interactive 3D model of the ${name}. Drag to rotate, pinch or scroll to zoom."
           camera-controls touch-action="pan-y"
           ar ar-modes="webxr scene-viewer quick-look" ar-scale="fixed" ar-placement="floor"

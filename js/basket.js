@@ -1,6 +1,6 @@
 import { getProductById } from './api.js';
 import { trackEvent } from './tracking.js';
-import { escapeHtml, formatPrice, placeholderImage, viewerUrl } from './utils.js';
+import { escapeHtml, formatPrice, productImage, usePlaceholderOnError, viewerUrl } from './utils.js';
 
 const STORAGE_KEY = 'basket';
 
@@ -72,7 +72,7 @@ async function renderBasket() {
     const row = document.createElement('div');
     row.className = 'basket-item';
     row.innerHTML = `
-      <img src="${placeholderImage(product.name, 160, 120)}" alt="${escapeHtml(product.name)}" width="80" height="60" />
+      <img src="${productImage(product, item.colour)}" alt="${escapeHtml(product.name)} in ${escapeHtml(item.colour)}" width="80" height="60" />
       <div class="basket-item__details">
         <h2 class="basket-item__name">${escapeHtml(product.name)}</h2>
         <p>Colour: ${escapeHtml(item.colour)}</p>
@@ -86,6 +86,7 @@ async function renderBasket() {
         data-id="${escapeHtml(item.id)}" data-colour="${escapeHtml(item.colour)}"
         aria-label="Remove ${escapeHtml(product.name)} in ${escapeHtml(item.colour)} from basket">Remove</button>
     `;
+    usePlaceholderOnError(row.querySelector('img'), product.name);
     rows.push(row);
   }
 

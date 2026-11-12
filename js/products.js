@@ -1,7 +1,9 @@
 import { getProducts } from './api.js';
 import { addToBasket } from './basket.js';
 import { trackEvent } from './tracking.js';
-import { escapeHtml, formatPrice, placeholderImage, viewerUrl } from './utils.js';
+import { escapeHtml, formatPrice, productImage, usePlaceholderOnError, viewerUrl } from './utils.js';
+
+const productsById = new Map();
 
 const grid = document.getElementById('product-grid');
 const filters = document.getElementById('filters');
@@ -17,7 +19,7 @@ function buildCard(product) {
   const name = escapeHtml(product.name);
 
   card.innerHTML = `
-    <img class="card__img" src="${placeholderImage(product.name)}" alt="${name}" width="400" height="300" loading="lazy" />
+    <img class="card__img" src="${productImage(product, firstColour)}" alt="${name} in ${escapeHtml(firstColour)}" width="400" height="300" loading="lazy" />
     <div class="card__body">
       <h2 class="card__name">${name}</h2>
       <p class="card__price">${formatPrice(product.price)}</p>
@@ -31,6 +33,8 @@ function buildCard(product) {
       </a>
     </div>
   `;
+
+  usePlaceholderOnError(card.querySelector('.card__img'), product.name);
 
   const swatches = card.querySelector('.card__swatches');
   product.colours.forEach((colour, i) => {
@@ -94,6 +98,10 @@ grid.addEventListener('click', (e) => {
       s.setAttribute('aria-pressed', String(s === swatch));
     });
     card.querySelector('.card__colour-name').textContent = colour;
+    const product = productsById.get(card.dataset.productId);
+    const img = card.querySelector('.card__img');
+    img.src = productImage(product, colour);
+    img.alt = `${product.name} in ${colour}`;
     card.querySelector('.card__add').dataset.colour = colour;
     card.querySelector('.card__link').href = viewerUrl(card.dataset.productId, colour);
     trackEvent('colour_changed', { productId: card.dataset.productId, colour });
@@ -111,6 +119,7 @@ grid.addEventListener('click', (e) => {
 
 try {
   const products = await getProducts();
+  products.forEach(p => productsById.set(p.id, p));
   grid.replaceChildren(...products.map(buildCard));
   buildFilters(products);
 } catch (err) {

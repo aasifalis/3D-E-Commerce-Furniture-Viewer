@@ -103,8 +103,10 @@ manifest.webmanifest  Web app manifest (Add to Home Screen)
 docker/               Dockerfile and nginx.conf
 ```
 
-## 3D models
+## 3D models and photos
 
-Only the **Camden Corner Sofa** and the **Evesham Armchair** have 3D models so far. The other products show "3D model coming soon". Both models are CC0 (free for any use). Sources are in [`assets/models/CREDITS.md`](assets/models/CREDITS.md).
+Every product has a 3D model in `assets/models/`. They are free CC0 models, mostly from the Kenney Furniture Kit, rescaled to the catalogue dimensions. Sources are listed in [`assets/models/CREDITS.md`](assets/models/CREDITS.md).
 
-To add a model, put a `.glb` in `assets/models/` and set the product's `"model"` field in `data/products.json`. Name the fabric material `fabric…` so the colour swatches can recolour it.
+Product photos in `assets/images/` are rendered from the same models in every catalogue colour, so the photo changes when a shopper picks a swatch.
+
+To add a product, put a `.glb` in `assets/models/` and set its `"model"` field in `data/products.json`. Name the material that should change colour `finish` or `fabric…`, and add a photo per colour named `<thumbnail>-<colour>.jpg`.
