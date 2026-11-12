@@ -155,7 +155,10 @@ The rest of the application requires no changes — the data layer is intentiona
 
 ## 3D Models
 
-Free furniture models sourced from [Kenney.nl](https://kenney.nl) (CC0 licence — free for any use). Alternatively [Market.pmnd.rs](https://market.pmnd.rs) has a large library of free `.glb` models.
+Models live in `assets/models/` as `.glb` files. Sources and licences are listed in [`assets/models/CREDITS.md`](assets/models/CREDITS.md):
+
+- `sofa.glb` — Kenney Furniture Kit corner sofa ([Kenney.nl](https://kenney.nl), CC0), rescaled to catalogue dimensions
+- `armchair.glb` — Sheen Chair from the [Khronos glTF Sample Assets](https://github.com/KhronosGroup/glTF-Sample-Assets) (CC0)
 
 ---
 
