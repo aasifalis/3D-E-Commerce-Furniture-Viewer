@@ -1,165 +1,108 @@
-# Roomi 
-### A furniture e-commerce web app with 3D viewing and Augmented Reality placement
+# Roomi
 
----
+**See furniture in your own room before you buy it.**
 
-## The Problem
+## The problem
 
-Working as a sales assistant in a furniture retail environment, I noticed a recurring frustration — customers would regularly ask about sofas, beds, wardrobes and other large items that weren't on the shop floor. With such a large product catalogue, it simply isn't feasible to display every item in store.
+Working as a sales assistant in a furniture store, I saw returned sofas, beds and wardrobes pile up in the stockroom. Very often the reason was simple: **the colour didn't suit the room**, or the piece was bigger than expected. A returned item is usually sold at a discount, costs money to collect and handle, and takes up valuable floor space.
 
-This creates two problems for the customer:
-
-1. **Scale** — it's difficult to know whether a sofa or wardrobe will actually fit in their space just from looking at a photo online or in a brochure
-2. **Aesthetic** — customers can't tell whether a piece will match their existing décor, flooring, or colour scheme until it's already in their home
-
-This often leads to hesitation, abandoned purchases, or worse — returns after delivery, which typically are reduced and much harder to sell and takes up more valuable store space.
-
-**Roomi** is my proposed solution: a web app where customers can browse the full product catalogue, add items to a basket, view them as interactive 3D models, and — most importantly — place them into their actual living space using Augmented Reality via their phone's camera. No app download required.
-
----
+Roomi lets shoppers check colour and size in their real room, using their phone's camera, before they order. No app download is needed.
 
 ## Features
 
-- **Product browsing** — filterable catalogue of large furniture items loaded dynamically from a JSON data source, mirroring how a real product API would work
-- **Basket** — add and remove items with a running total, persisted in `localStorage` so it survives page refreshes
-- **3D viewer** — rotate, zoom and inspect any basket item as a full 3D model using Three.js
-- **AR placement** — place furniture into your real room using your phone camera via the WebXR API, to check scale and how it looks in your actual space
-- **iOS fallback** — Apple Quick Look support for iPhone users, since WebXR is currently Android/Chrome only
+- **Catalogue**: products loaded from `data/products.json`, with room filters and colour swatches.
+- **3D viewer**: rotate and zoom each product, and switch fabric colour on the model.
+- **AR**: place the product in your room at true size, in the colour you picked.
+- **Basket**: add and remove items, with a running total kept in `localStorage`.
+- **Insights** (`insights.html`): product views, AR sessions, add-to-basket rate for shoppers who used AR versus those who didn't, and the most popular colour per product.
+- **Business case** (`business-case.html`): estimates returns avoided, annual saving, net benefit and payback period from your own assumptions.
 
----
+## How AR works
 
-## Tech Stack
+The viewer uses Google's [`<model-viewer>`](https://modelviewer.dev), which picks the best AR mode for the device:
 
-| Technology | Usage |
-|---|---|
-| HTML, CSS, JavaScript | Core frontend — no frameworks |
-| Three.js | 3D model rendering and orbit controls |
-| GLTFLoader | Loading `.glb` 3D model files |
-| WebXR API | Augmented reality hit-test and surface detection |
-| localStorage | Basket state persistence |
-| Docker + Nginx | Local development and containerised deployment |
-| Vercel | Live deployment via GitHub CI/CD |
+| Device | AR mode | What happens |
+|---|---|---|
+| Android (Chrome) | **WebXR** | The camera opens in the page. Move the phone to find the floor, and the product appears at real size. Falls back to Google's **Scene Viewer** if WebXR isn't available. |
+| iPhone / iPad (Safari) | **Quick Look** | model-viewer converts the `.glb` model to Apple's `.usdz` format on the fly and opens it in Quick Look. |
+| Desktop | None | 3D viewer only, with a note to open the page on a phone. |
 
-This stack was chosen deliberately to reflect a TypeScript/React/Node/AWS environment — the vanilla JS foundation translates directly to those frameworks, and the Docker setup mirrors how a production frontend would be containerised and deployed.
+`ar-scale="fixed"` stops shoppers resizing the model, so what they see is the real size. Colour changes carry over to WebXR and Quick Look. Scene Viewer loads the original file, so it shows the default colour.
 
----
+`js/ar.js` records an `ar_opened` event when model-viewer's `ar-status` event reports `session-started` (WebXR). Quick Look and Scene Viewer run outside the page and send no `ar-status`, so for those the AR button tap is recorded instead.
 
-## Project Structure
+## Tracking
 
-```
-furnish/
-├── index.html          # Product browse page
-├── basket.html         # Basket page
-├── viewer.html         # 3D + AR viewer
-├── css/
-│   ├── style.css       # Global styles and variables
-│   ├── products.css    # Product grid and cards
-│   ├── basket.css      # Basket layout
-│   └── viewer.css      # 3D viewer and AR button
-├── js/
-│   ├── utils.js        # Shared helper functions
-│   ├── products.js     # Fetches data, renders product grid
-│   ├── basket.js       # Add/remove/total logic
-│   ├── viewer.js       # Three.js scene and GLTFLoader
-│   ├── api.js          # Data fetching
-│   └── ar.js           # WebXR hit-test and AR placement
-├── data/
-│   └── products.json   # Mock product catalogue (API-ready structure)
-├── assets/
-│   ├── models/         # .glb 3D model files
-│   └── images/         # Product thumbnails
-├── docker/
-│   ├── Dockerfile
-│   └── nginx.conf
-├── docker-compose.yml
-├── .env.example
-└── README.md
-```
+`js/tracking.js` stores events in `localStorage`: `product_view`, `ar_opened`, `colour_changed` and `add_to_basket`, each with `productId`, `colour`, `timestamp` and a per-tab `sessionId`. The data stays in that one browser. In production these events would go to an analytics service. The Insights page has a **Load sample data** button for demos.
 
----
+## Tech
 
-## Getting Started
+- HTML, CSS and JavaScript (ES modules, no framework, no build step)
+- [`<model-viewer>`](https://modelviewer.dev) 4.0 (built on Three.js) for 3D and AR
+- `localStorage` for the basket and tracking
+- Docker + Nginx for a containerised static server
 
-### Run locally with Docker
+## Run it locally
+
+You need a local web server, because browsers block `fetch()` on `file://` pages.
 
 ```bash
-git clone https://github.com/yourusername/roomi.git
-cd roomi
+npx serve . -l 8080
+```
+
+Then open http://localhost:8080. Or, with Docker:
+
+```bash
 docker compose up --build
 ```
 
-Then open [http://localhost:8080](http://localhost:8080)
+### Testing AR on your phone
 
-### Run locally without Docker
+AR needs **HTTPS**. To try it on a phone, put the local server behind an HTTPS tunnel:
 
 ```bash
-cd roomi
-npx serve .
+npx localtunnel --port 8080
 ```
 
-Then open [http://localhost:3000](http://localhost:3000)
+Open the `https://…` address it prints on your phone. Deploying to GitHub Pages or Vercel also gives you HTTPS.
 
-> You must use a local server rather than opening `index.html` directly — the browser blocks `fetch()` requests on the `file://` protocol.
+### What doesn't work over plain `http://` (for example `http://192.168.x.x:8080`)
 
----
+`localhost` counts as secure, so everything works there on your own computer. On another device over plain HTTP:
 
-## AR Support
+- **AR (WebXR)** is blocked, because the browser only allows WebXR on secure pages. The AR button is hidden and the page explains why.
+- **Quick Look and Scene Viewer** may not open reliably, so treat AR as HTTPS-only.
+- `crypto.randomUUID()` is unavailable. `tracking.js` falls back to its own ID generator for this.
+- The 3D viewer, basket, tracking, Insights and Business case pages all work.
 
-| Platform | Support | How |
-|---|---|---|
-| Android (Chrome) | ✅ Full WebXR | Hit-test surface detection, tap to place |
-| iOS (Safari) | ⚠️ Partial | Apple Quick Look via `.usdz` fallback |
-| Desktop | ❌ Not supported | 3D viewer only |
+Note that `localStorage` is stored per address, so `localhost`, your tunnel URL and your LAN IP each keep separate baskets and tracking data.
 
-The app detects the device and shows the appropriate experience automatically.
+## Project structure
 
----
-
-## How the AR Works
-
-1. User taps **View in AR** on a basket item
-2. Browser requests camera permission via the WebXR API
-3. The live camera feed fills the screen
-4. WebXR's hit-test feature casts a ray each frame to detect flat surfaces (floor, table)
-5. A reticle appears on the detected surface showing where the item will be placed
-6. User taps to place the 3D model — it appears anchored in their real space
-7. They can walk around it and view it from any angle
-
----
-
-## What a Real Integration Would Look Like
-
-The product data currently lives in `data/products.json`. In a production environment this would be replaced with a single line change in `products.js`:
-
-```js
-// Current (mock)
-const response = await fetch('data/products.json')
-
-// Production
-const response = await fetch('https://api.roomi.com/v1/products')
+```
+index.html            Product catalogue
+viewer.html           3D viewer + AR
+basket.html           Basket
+insights.html         Tracking dashboard
+business-case.html    ROI calculator
+css/                  One stylesheet per page, plus style.css (shared)
+js/
+  api.js              Loads products.json
+  basket.js           Basket logic
+  products.js         Catalogue page
+  viewer.js           Viewer page, colour changes on the model
+  ar.js               Detects AR launches
+  tracking.js         Event logging to localStorage
+  insights.js         Insights page
+  business-case.js    Business case calculations
+  utils.js            Shared helpers
+data/products.json    Product catalogue (API-shaped mock)
+assets/models/        .glb 3D models (see CREDITS.md)
+docker/               Dockerfile and nginx.conf
 ```
 
-The rest of the application requires no changes — the data layer is intentionally separated from the UI logic for exactly this reason.
+## 3D models
 
----
+Only the **Camden Corner Sofa** and the **Evesham Armchair** have 3D models so far. The other products show "3D model coming soon". Both models are CC0 (free for any use). Sources are in [`assets/models/CREDITS.md`](assets/models/CREDITS.md).
 
-## Future Improvements
-
-- Migrate to **TypeScript** for type safety across the product and basket data structures
-- Rebuild the UI as **React components** — each product card and the basket are natural candidates
-- Add a **Node.js/Express backend** to serve products from a real database
-- Deploy to **AWS ECS** using the existing Dockerfile for production-grade cloud hosting
-- Add **unit tests** for the basket logic using Jest
-
----
-
-## 3D Models
-
-Models live in `assets/models/` as `.glb` files. Sources and licences are listed in [`assets/models/CREDITS.md`](assets/models/CREDITS.md):
-
-- `sofa.glb` — Kenney Furniture Kit corner sofa ([Kenney.nl](https://kenney.nl), CC0), rescaled to catalogue dimensions
-- `armchair.glb` — Sheen Chair from the [Khronos glTF Sample Assets](https://github.com/KhronosGroup/glTF-Sample-Assets) (CC0)
-
----
-
-*Built as a portfolio project. Inspired by the real-world problem of large furniture retailers being unable to display their full catalogue in store.*
+To add a model, put a `.glb` in `assets/models/` and set the product's `"model"` field in `data/products.json`. Name the fabric material `fabric…` so the colour swatches can recolour it.

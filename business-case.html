@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Business case | Roomi</title>
+  <meta name="description" content="Estimate the return on investment of AR furniture previews." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/business-case.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav aria-label="Main">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Roomi home">Roo<span>mi</span></a>
+      <div class="nav-links">
+        <a href="index.html">Shop</a>
+        <a href="insights.html">Insights</a>
+        <a href="business-case.html" aria-current="page">Business case</a>
+        <a href="basket.html">Basket <span id="basket-count" class="basket-count">0</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <header class="page-header">
+      <h1 class="page-title">Business case</h1>
+      <p class="page-intro">Estimate what AR could save by reducing returns. Every input is an assumption: leave a box empty to use the default shown.</p>
+    </header>
+
+    <div class="bc-layout">
+      <form id="business-form" class="bc-form" novalidate>
+        <fieldset>
+          <legend>Assumptions</legend>
+        <div class="field">
+          <label for="orders">Annual furniture orders <span class="tag">Assumption</span></label>
+          <div class="input-wrap"><input id="orders" name="orders" type="number" inputmode="decimal" min="0"  step="1" placeholder="20000" aria-describedby="orders-hint" /></div>
+          <p class="hint" id="orders-hint">Online and in-store orders for large furniture per year. Default: 20,000.</p>
+        </div>
+        <div class="field">
+          <label for="returnRate">Current return rate (%) <span class="tag">Assumption</span></label>
+          <div class="input-wrap"><input id="returnRate" name="returnRate" type="number" inputmode="decimal" min="0" max="100" step="0.1" placeholder="8" aria-describedby="returnRate-hint" /><span class="affix" aria-hidden="true">%</span></div>
+          <p class="hint" id="returnRate-hint">Share of those orders that are returned. Default: 8%.</p>
+        </div>
+        <div class="field">
+          <label for="costPerReturn">Average cost per return (£) <span class="tag">Assumption</span></label>
+          <div class="input-wrap"><span class="affix" aria-hidden="true">£</span><input id="costPerReturn" name="costPerReturn" type="number" inputmode="decimal" min="0"  step="1" placeholder="120" aria-describedby="costPerReturn-hint" /></div>
+          <p class="hint" id="costPerReturn-hint">Collection, handling, refurbishment and lost margin. Default: £120.</p>
+        </div>
+        <div class="field">
+          <label for="reduction">Expected reduction in returns from AR (%) <span class="tag">Assumption</span></label>
+          <div class="input-wrap"><input id="reduction" name="reduction" type="number" inputmode="decimal" min="0" max="100" step="0.1" placeholder="25" aria-describedby="reduction-hint" /><span class="affix" aria-hidden="true">%</span></div>
+          <p class="hint" id="reduction-hint">How many of today's returns AR could prevent. Default: 25%.</p>
+        </div>
+        <div class="field">
+          <label for="buildCost">One-off build cost (£) <span class="tag">Assumption</span></label>
+          <div class="input-wrap"><span class="affix" aria-hidden="true">£</span><input id="buildCost" name="buildCost" type="number" inputmode="decimal" min="0"  step="1" placeholder="15000" aria-describedby="buildCost-hint" /></div>
+          <p class="hint" id="buildCost-hint">Design, development, 3D models and launch. Default: £15,000.</p>
+        </div>
+        <div class="field">
+          <label for="runningCost">Annual running cost (£) <span class="tag">Assumption</span></label>
+          <div class="input-wrap"><span class="affix" aria-hidden="true">£</span><input id="runningCost" name="runningCost" type="number" inputmode="decimal" min="0"  step="1" placeholder="3000" aria-describedby="runningCost-hint" /></div>
+          <p class="hint" id="runningCost-hint">Hosting, maintenance and new 3D models each year. Default: £3,000.</p>
+        </div>
+          <p id="calc-error" class="error" role="alert" hidden>Please check the highlighted values. Numbers must be zero or more, and percentages no more than 100.</p>
+          <button type="reset" class="button-secondary">Reset to defaults</button>
+        </fieldset>
+      </form>
+
+      <section class="bc-results" aria-labelledby="results-heading" aria-live="polite">
+        <h2 id="results-heading">Estimated impact</h2>
+        <dl class="results">
+          <div class="result"><dt>Returns avoided per year</dt><dd id="returns-avoided">–</dd><dd class="context" id="returns-context"></dd></div>
+          <div class="result"><dt>Annual saving</dt><dd id="annual-saving">–</dd><dd class="context">returns avoided × cost per return</dd></div>
+          <div class="result"><dt>Net annual benefit</dt><dd id="net-benefit">–</dd><dd class="context" id="first-year"></dd></div>
+          <div class="result"><dt>Payback period</dt><dd id="payback">–</dd><dd class="context" id="payback-context"></dd></div>
+        </dl>
+        <p class="finance-note"><strong>Note:</strong> these figures are illustrative. Real order volumes, return rates and costs would come from Finance, and the expected reduction should be checked against data from <a href="insights.html">Insights</a> once AR is live.</p>
+      </section>
+    </div>
+  </main>
+
+  <script type="module" src="js/business-case.js"></script>
+  <script type="module" src="js/basket.js"></script>
+</body>
+</html>

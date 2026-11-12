@@ -1,0 +1,147 @@
+.back-link {
+  display: inline-block;
+  padding: 0.5rem 0;
+  margin-bottom: 0.5rem;
+  text-decoration: none;
+}
+
+.viewer-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 860px) {
+  .viewer-layout {
+    grid-template-columns: 3fr 2fr;
+    align-items: start;
+  }
+}
+
+.viewer-stage {
+  background: var(--surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+model-viewer {
+  display: block;
+  width: 100%;
+  height: clamp(320px, 60vh, 560px);
+  background: linear-gradient(#fafafa, #ececec);
+  --poster-color: transparent;
+}
+
+.ar-button {
+  position: absolute;
+  left: 50%;
+  bottom: 1rem;
+  transform: translateX(-50%);
+  min-height: 44px;
+  padding: 0.6rem 1.25rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--text);
+  color: white;
+  font: inherit;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+
+.model-progress {
+  display: none;
+}
+
+.no-model {
+  display: grid;
+  place-content: center;
+  gap: 0.25rem;
+  min-height: 320px;
+  padding: 2rem;
+  text-align: center;
+  color: var(--muted);
+}
+
+.viewer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.viewer-info h1 {
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
+  line-height: 1.2;
+}
+
+.viewer-category {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.viewer-price {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.viewer-rating {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.viewer-rating [aria-hidden] {
+  color: #c98a00;
+}
+
+.viewer-dims {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.viewer-colours {
+  border: 0;
+}
+
+.viewer-colours legend {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.swatches .swatch {
+  width: 40px;
+  height: 40px;
+}
+
+.viewer-status {
+  color: var(--accent-dark);
+  font-weight: 500;
+  min-height: 1.5em;
+}
+
+.ar-note {
+  font-size: 0.85rem;
+  color: var(--muted);
+  padding: 0.75rem;
+  background: #f3f3f3;
+  border-radius: 4px;
+}
+
+.viewer-message {
+  padding: 2rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+}

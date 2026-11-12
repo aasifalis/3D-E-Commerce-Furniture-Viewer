@@ -23,7 +23,7 @@
       "price": 649,
       "category": "Bedroom",
       "thumbnail": "assets/images/bed.jpg",
-      "model": "assets/models/bed.glb",
+      "model": null,
       "description": "A solid oak king-size bed frame with a padded linen headboard. Clean lines and a natural finish suit both modern and traditional bedrooms.",
       "dimensions": { "w": 170, "d": 210, "h": 110 },
       "colours": [
@@ -40,7 +40,7 @@
       "price": 549,
       "category": "Bedroom",
       "thumbnail": "assets/images/wardrobe.jpg",
-      "model": "assets/models/wardrobe.glb",
+      "model": null,
       "description": "A double wardrobe with two hinged doors, internal rail and fixed shelf. Smooth-close hinges and brushed brass handles add a premium feel.",
       "dimensions": { "w": 100, "d": 58, "h": 196 },
       "colours": [
@@ -57,7 +57,7 @@
       "price": 329,
       "category": "Bedroom",
       "thumbnail": "assets/images/drawers.jpg",
-      "model": "assets/models/drawers.glb",
+      "model": null,
       "description": "Five deep drawers with dovetail joints and solid wood runners. A timeless silhouette with modern proportions that fits any bedroom layout.",
       "dimensions": { "w": 80, "d": 45, "h": 120 },
       "colours": [
@@ -74,7 +74,7 @@
       "price": 479,
       "category": "Dining Room",
       "thumbnail": "assets/images/table.jpg",
-      "model": "assets/models/table.glb",
+      "model": null,
       "description": "A six-seater extendable dining table in solid oak veneer. The central leaf extends from 160cm to 210cm to accommodate larger gatherings.",
       "dimensions": { "w": 160, "d": 90, "h": 76 },
       "colours": [
@@ -91,7 +91,7 @@
       "price": 249,
       "category": "Living Room",
       "thumbnail": "assets/images/bookcase.jpg",
-      "model": "assets/models/bookcase.glb",
+      "model": null,
       "description": "A tall five-shelf bookcase with adjustable shelving and a solid back panel. Sturdy enough for books, display pieces, or a home office setup.",
       "dimensions": { "w": 80, "d": 35, "h": 180 },
       "colours": [
@@ -108,7 +108,7 @@
       "price": 299,
       "category": "Living Room",
       "thumbnail": "assets/images/tvunit.jpg",
-      "model": "assets/models/tvunit.glb",
+      "model": null,
       "description": "A wide low-profile TV unit with two sliding doors and open central shelf. Cable management cutouts keep your setup tidy.",
       "dimensions": { "w": 160, "d": 45, "h": 55 },
       "colours": [

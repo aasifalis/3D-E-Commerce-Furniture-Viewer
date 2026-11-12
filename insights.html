@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Insights | Roomi</title>
+  <meta name="description" content="How shoppers use 3D and AR on Roomi." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/insights.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav aria-label="Main">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Roomi home">Roo<span>mi</span></a>
+      <div class="nav-links">
+        <a href="index.html">Shop</a>
+        <a href="insights.html" aria-current="page">Insights</a>
+        <a href="business-case.html">Business case</a>
+        <a href="basket.html">Basket <span id="basket-count" class="basket-count">0</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <header class="page-header">
+      <h1 class="page-title">Insights</h1>
+      <p class="page-intro">Events recorded by <code>js/tracking.js</code> in <strong>this browser only</strong> (localStorage).
+        A live site would send these to an analytics service instead.</p>
+      <div class="actions">
+        <button type="button" id="load-sample" class="button-secondary">Load sample data</button>
+        <button type="button" id="clear-data" class="button-secondary">Clear data</button>
+      </div>
+      <p id="insights-status" class="visually-hidden" role="status" aria-live="polite"></p>
+    </header>
+    <div id="insights-content">
+      <p class="loading">Loading…</p>
+    </div>
+  </main>
+
+  <script type="module" src="js/insights.js"></script>
+  <script type="module" src="js/basket.js"></script>
+</body>
+</html>
