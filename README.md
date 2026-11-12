@@ -98,6 +98,8 @@ js/
   utils.js            Shared helpers
 data/products.json    Product catalogue (API-shaped mock)
 assets/models/        .glb 3D models (see CREDITS.md)
+assets/icons/         App icons (icon.svg is the source)
+manifest.webmanifest  Web app manifest (Add to Home Screen)
 docker/               Dockerfile and nginx.conf
 ```
 
