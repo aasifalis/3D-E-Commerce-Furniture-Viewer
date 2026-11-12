@@ -15,17 +15,51 @@ function renderStars(rating) {
   return '★'.repeat(full) + '☆'.repeat(5 - full);
 }
 
-// Recolour every material whose name starts with "fabric" or "finish" (see assets/models/CREDITS.md).
-function applyColourToModel(modelViewer, hex) {
-  const materials = modelViewer.model?.materials ?? [];
+const RECOLOURABLE = /^(fabric|finish)/i;
+const originalTextures = new WeakMap(); // material -> its texture as loaded
+const textureCache = new Map();         // url -> model-viewer texture
+let colourRequest = 0;
+
+/**
+ * Show a product colour on the 3D model. A colour in products.json can be:
+ *   { variant: "Navy" }                         a colour variant built into the model
+ *   { textures: { finish: "path.jpg" } }        swap the wood / paint texture
+ *   { textures: { finish: "original" } }        the model's own texture
+ *   { hex: "#..." } only                        tint "fabric…" / "finish…" materials
+ */
+async function applyColourToModel(modelViewer, colour) {
+  const request = ++colourRequest;
+  const materials = (modelViewer.model?.materials ?? []).filter(m => m.isLoaded && RECOLOURABLE.test(m.name));
+
+  if (colour.variant) {
+    modelViewer.variantName = colour.variant;
+    return;
+  }
+
+  if (colour.textures) {
+    for (const material of materials) {
+      const url = colour.textures[material.name];
+      if (!url) continue;
+      const slot = material.pbrMetallicRoughness.baseColorTexture;
+      if (!originalTextures.has(material)) originalTextures.set(material, slot.texture);
+
+      let texture = originalTextures.get(material);
+      if (url !== 'original') {
+        if (!textureCache.has(url)) textureCache.set(url, modelViewer.createTexture(url));
+        texture = await textureCache.get(url);
+      }
+      if (request !== colourRequest) return; // a newer colour was picked meanwhile
+      slot.setTexture(texture);
+    }
+    return;
+  }
+
   for (const material of materials) {
-    // Skip unused material variants that haven't been loaded.
-    if (!material.isLoaded || !/^(fabric|finish)/i.test(material.name)) continue;
-    material.pbrMetallicRoughness.setBaseColorFactor(hex);
+    material.pbrMetallicRoughness.setBaseColorFactor(colour.hex);
     // Only velvet materials (KHR_materials_sheen) have a sheen colour;
     // model-viewer throws for materials without one.
     try {
-      material.setSheenColorFactor(hex);
+      material.setSheenColorFactor(colour.hex);
     } catch {
       /* no sheen on this material */
     }
@@ -113,7 +147,7 @@ async function init() {
     });
     document.getElementById('colour-name').textContent = colour.name;
     history.replaceState(null, '', `?id=${encodeURIComponent(product.id)}&colour=${encodeURIComponent(colour.name)}`);
-    if (modelViewer) applyColourToModel(modelViewer, colour.hex);
+    if (modelViewer) applyColourToModel(modelViewer, colour).catch(console.error);
     trackEvent('colour_changed', { productId: product.id, colour: colour.name });
   });
 
@@ -128,7 +162,7 @@ async function init() {
     initARTracking(modelViewer, { productId: product.id, getColour: () => colour.name });
 
     modelViewer.addEventListener('load', () => {
-      applyColourToModel(modelViewer, colour.hex);
+      applyColourToModel(modelViewer, colour).catch(console.error);
       const note = document.getElementById('ar-note');
       if (!modelViewer.canActivateAR) {
         note.textContent = window.isSecureContext

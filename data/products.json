@@ -1,52 +1,120 @@
 {
   "products": [
     {
-      "id": "camden-corner-sofa",
-      "name": "Camden Corner Sofa",
+      "id": "camden-curved-sofa",
+      "name": "Camden Curved Velvet Sofa",
       "price": 849,
       "category": "Living Room",
       "thumbnail": "assets/images/sofa.jpg",
       "model": "assets/models/sofa.glb",
-      "description": "A generous L-shaped corner sofa upholstered in warm grey fabric. Deep seats and high arms make this the centrepiece of any living room.",
-      "dimensions": { "w": 260, "d": 160, "h": 88 },
+      "description": "A sculptural curved sofa in soft, light-catching velvet, with a built-in chaise end and slim black metal legs. Seats three, with room to stretch out.",
+      "dimensions": {
+        "w": 219,
+        "d": 102,
+        "h": 79
+      },
       "colours": [
-        { "name": "Warm Grey", "hex": "#8B8B84" },
-        { "name": "Slate Blue", "hex": "#6B7E99" },
-        { "name": "Oatmeal", "hex": "#D4C5A9" }
+        {
+          "name": "Navy",
+          "hex": "#2B3E7E",
+          "variant": "Navy"
+        },
+        {
+          "name": "Champagne",
+          "hex": "#9D8B78",
+          "variant": "Champagne"
+        },
+        {
+          "name": "Gray",
+          "hex": "#C8CACA",
+          "variant": "Gray"
+        },
+        {
+          "name": "Pale Pink",
+          "hex": "#E9D6D4",
+          "variant": "Pale Pink"
+        }
       ],
       "rating": 4.7,
       "reviews": 214
     },
     {
-      "id": "ashford-king-bed",
-      "name": "Ashford King Bed Frame",
+      "id": "ashford-four-poster-bed",
+      "name": "Ashford Four-Poster Bed",
       "price": 649,
       "category": "Bedroom",
       "thumbnail": "assets/images/bed.jpg",
       "model": "assets/models/bed.glb",
-      "description": "A solid oak king-size bed frame with a padded linen headboard. Clean lines and a natural finish suit both modern and traditional bedrooms.",
-      "dimensions": { "w": 170, "d": 210, "h": 110 },
+      "description": "A carved solid-wood double bed with gothic arch panels and tall turned finials at each corner. A dramatic centrepiece for a traditional bedroom.",
+      "dimensions": {
+        "w": 149,
+        "d": 204,
+        "h": 153
+      },
       "colours": [
-        { "name": "Natural Oak", "hex": "#C8A96E" },
-        { "name": "Dark Walnut", "hex": "#4A3728" },
-        { "name": "Painted White", "hex": "#F2F0EB" }
+        {
+          "name": "Dark Walnut",
+          "hex": "#4A2E1C",
+          "textures": {
+            "finish": "original"
+          }
+        },
+        {
+          "name": "Natural Oak",
+          "hex": "#B88A55",
+          "textures": {
+            "finish": "assets/models/textures/bed-natural-oak.jpg"
+          }
+        },
+        {
+          "name": "Antique White",
+          "hex": "#E4DED2",
+          "textures": {
+            "finish": "assets/models/textures/bed-antique-white.jpg"
+          }
+        }
       ],
       "rating": 4.8,
       "reviews": 189
     },
     {
-      "id": "hadley-double-wardrobe",
-      "name": "Hadley Double Wardrobe",
+      "id": "hadley-glazed-dresser",
+      "name": "Hadley Glazed Dresser",
       "price": 549,
-      "category": "Bedroom",
-      "thumbnail": "assets/images/wardrobe.jpg",
-      "model": "assets/models/wardrobe.glb",
-      "description": "A double wardrobe with two hinged doors, internal rail and fixed shelf. Smooth-close hinges and brushed brass handles add a premium feel.",
-      "dimensions": { "w": 100, "d": 58, "h": 196 },
+      "category": "Dining Room",
+      "thumbnail": "assets/images/dresser.jpg",
+      "model": "assets/models/dresser.glb",
+      "description": "A tall vintage-style dresser with glazed display cabinets above and deep cupboards below, topped with an arched cornice. Ideal for china, glassware and books.",
+      "dimensions": {
+        "w": 202,
+        "d": 67,
+        "h": 224
+      },
       "colours": [
-        { "name": "White", "hex": "#F2F0EB" },
-        { "name": "Soft Grey", "hex": "#B2B5B8" },
-        { "name": "Midnight Blue", "hex": "#2C3E5A" }
+        {
+          "name": "Dark Mahogany",
+          "hex": "#4A2416",
+          "textures": {
+            "finish_a": "original",
+            "finish_b": "original"
+          }
+        },
+        {
+          "name": "Sage Green",
+          "hex": "#8C9C80",
+          "textures": {
+            "finish_a": "assets/models/textures/dresser-a-sage-green.jpg",
+            "finish_b": "assets/models/textures/dresser-b-sage-green.jpg"
+          }
+        },
+        {
+          "name": "Antique White",
+          "hex": "#E4DED2",
+          "textures": {
+            "finish_a": "assets/models/textures/dresser-a-antique-white.jpg",
+            "finish_b": "assets/models/textures/dresser-b-antique-white.jpg"
+          }
+        }
       ],
       "rating": 4.5,
       "reviews": 97
@@ -58,29 +126,80 @@
       "category": "Bedroom",
       "thumbnail": "assets/images/drawers.jpg",
       "model": "assets/models/drawers.glb",
-      "description": "Five deep drawers with dovetail joints and solid wood runners. A timeless silhouette with modern proportions that fits any bedroom layout.",
-      "dimensions": { "w": 80, "d": 45, "h": 120 },
+      "description": "Three deep drawers beneath a carved arched frieze, raised on bracket feet. A classic hand-finished piece with plenty of storage.",
+      "dimensions": {
+        "w": 120,
+        "d": 58,
+        "h": 121
+      },
       "colours": [
-        { "name": "White", "hex": "#F2F0EB" },
-        { "name": "Natural Pine", "hex": "#C4A882" },
-        { "name": "Charcoal", "hex": "#3A3D42" }
+        {
+          "name": "Antique Mahogany",
+          "hex": "#5A2E18",
+          "textures": {
+            "finish": "original"
+          }
+        },
+        {
+          "name": "Natural Oak",
+          "hex": "#B88A55",
+          "textures": {
+            "finish": "assets/models/textures/drawers-natural-oak.jpg"
+          }
+        },
+        {
+          "name": "Dove Grey",
+          "hex": "#A09E98",
+          "textures": {
+            "finish": "assets/models/textures/drawers-dove-grey.jpg"
+          }
+        }
       ],
       "rating": 4.6,
       "reviews": 143
     },
     {
-      "id": "stratford-dining-table",
-      "name": "Stratford Dining Table",
+      "id": "stratford-trestle-table",
+      "name": "Stratford Trestle Dining Table",
       "price": 479,
       "category": "Dining Room",
       "thumbnail": "assets/images/table.jpg",
       "model": "assets/models/table.glb",
-      "description": "A six-seater extendable dining table in solid oak veneer. The central leaf extends from 160cm to 210cm to accommodate larger gatherings.",
-      "dimensions": { "w": 160, "d": 90, "h": 76 },
+      "description": "A farmhouse trestle dining table in hand-painted solid wood, with a gently distressed finish. Seats six comfortably.",
+      "dimensions": {
+        "w": 191,
+        "d": 90,
+        "h": 76
+      },
       "colours": [
-        { "name": "Oak", "hex": "#C8A96E" },
-        { "name": "Walnut", "hex": "#4A3728" },
-        { "name": "White", "hex": "#F2F0EB" }
+        {
+          "name": "Duck Egg Blue",
+          "hex": "#7E97A6",
+          "textures": {
+            "finish": "original"
+          }
+        },
+        {
+          "name": "Off White",
+          "hex": "#ECE7DD",
+          "textures": {
+            "finish": "assets/models/textures/table-off-white.jpg"
+          }
+        },
+        {
+          "name": "Sage Green",
+          "hex": "#8C9C80",
+          "textures": {
+            "finish": "assets/models/textures/table-sage-green.jpg"
+          }
+        },
+        {
+          "name": "Charcoal",
+          "hex": "#3A3D42",
+          "textures": {
+            "finish": "assets/models/textures/table-charcoal.jpg"
+          }
+        }
       ],
       "rating": 4.4,
       "reviews": 76
@@ -92,47 +211,107 @@
       "category": "Living Room",
       "thumbnail": "assets/images/bookcase.jpg",
       "model": "assets/models/bookcase.glb",
-      "description": "A tall five-shelf bookcase with adjustable shelving and a solid back panel. Sturdy enough for books, display pieces, or a home office setup.",
-      "dimensions": { "w": 80, "d": 35, "h": 180 },
+      "description": "A tall, slim bookcase in painted wood with a gently distressed finish, a solid back panel and a moulded top. Plenty of shelves for books and display pieces.",
+      "dimensions": {
+        "w": 100,
+        "d": 26,
+        "h": 208
+      },
       "colours": [
-        { "name": "White", "hex": "#F2F0EB" },
-        { "name": "Black", "hex": "#1C1C1C" },
-        { "name": "Oak Effect", "hex": "#B8935A" }
+        {
+          "name": "Distressed White",
+          "hex": "#E2E0DB",
+          "textures": {
+            "finish": "original"
+          }
+        },
+        {
+          "name": "Sage Green",
+          "hex": "#8C9C80",
+          "textures": {
+            "finish": "assets/models/textures/bookcase-sage-green.jpg"
+          }
+        },
+        {
+          "name": "Black",
+          "hex": "#252525",
+          "textures": {
+            "finish": "assets/models/textures/bookcase-black.jpg"
+          }
+        }
       ],
       "rating": 4.3,
       "reviews": 58
     },
     {
-      "id": "clifton-tv-unit",
-      "name": "Clifton TV Unit",
+      "id": "clifton-media-unit",
+      "name": "Clifton Media Unit",
       "price": 299,
       "category": "Living Room",
-      "thumbnail": "assets/images/tvunit.jpg",
-      "model": "assets/models/tvunit.glb",
-      "description": "A wide low-profile TV unit with two sliding doors and open central shelf. Cable management cutouts keep your setup tidy.",
-      "dimensions": { "w": 160, "d": 45, "h": 55 },
+      "thumbnail": "assets/images/media-unit.jpg",
+      "model": "assets/models/media-unit.glb",
+      "description": "A long, low media unit in warm wood with slatted cabinet doors on slim black legs. Room for a large TV, speakers and games consoles.",
+      "dimensions": {
+        "w": 244,
+        "d": 52,
+        "h": 68
+      },
       "colours": [
-        { "name": "White & Oak", "hex": "#D4C5A9" },
-        { "name": "All White", "hex": "#F2F0EB" },
-        { "name": "Walnut", "hex": "#4A3728" }
+        {
+          "name": "Walnut",
+          "hex": "#6B4A2E",
+          "textures": {
+            "finish": "original"
+          }
+        },
+        {
+          "name": "Natural Oak",
+          "hex": "#B88A55",
+          "textures": {
+            "finish": "assets/models/textures/media-unit-natural-oak.jpg"
+          }
+        },
+        {
+          "name": "Matt Black",
+          "hex": "#262626",
+          "textures": {
+            "finish": "assets/models/textures/media-unit-matt-black.jpg"
+          }
+        }
       ],
       "rating": 4.6,
       "reviews": 162
     },
     {
-      "id": "evesham-armchair",
-      "name": "Evesham Armchair",
+      "id": "evesham-accent-chair",
+      "name": "Evesham Accent Chair",
       "price": 379,
       "category": "Living Room",
       "thumbnail": "assets/images/armchair.jpg",
       "model": "assets/models/armchair.glb",
-      "description": "A generously proportioned armchair with a solid beech frame and removable cushion covers. Perfect as a standalone statement or paired with a sofa.",
-      "dimensions": { "w": 85, "d": 90, "h": 86 },
+      "description": "A mid-century style accent chair with a button-tufted velvet seat and back on tapered wooden legs. Perfect beside a sofa or in a bedroom corner.",
+      "dimensions": {
+        "w": 83,
+        "d": 57,
+        "h": 69
+      },
       "colours": [
-        { "name": "Forest Green", "hex": "#4A7C59" },
-        { "name": "Terracotta", "hex": "#C4622D" },
-        { "name": "Navy", "hex": "#1F3058" },
-        { "name": "Cream", "hex": "#E8DCC8" }
+        {
+          "name": "Forest Green",
+          "hex": "#4A7C59"
+        },
+        {
+          "name": "Terracotta",
+          "hex": "#C4622D"
+        },
+        {
+          "name": "Navy",
+          "hex": "#1F3058"
+        },
+        {
+          "name": "Cream",
+          "hex": "#E8DCC8"
+        }
       ],
       "rating": 4.9,
       "reviews": 301

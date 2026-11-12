@@ -105,8 +105,12 @@ docker/               Dockerfile and nginx.conf
 
 ## 3D models and photos
 
-Every product has a 3D model in `assets/models/`. They are free CC0 models, mostly from the Kenney Furniture Kit, rescaled to the catalogue dimensions. Sources are listed in [`assets/models/CREDITS.md`](assets/models/CREDITS.md).
+Every product has a realistic, textured 3D model in `assets/models/`, at real-world size. Most are CC0 models from [Poly Haven](https://polyhaven.com). The sofa is Wayfair's GlamVelvetSofa (CC BY 4.0, attribution required). Sources and changes are listed in [`assets/models/CREDITS.md`](assets/models/CREDITS.md).
 
-Product photos in `assets/images/` are rendered from the same models in every catalogue colour, so the photo changes when a shopper picks a swatch.
+Each colour swatch changes the model in one of three ways, set per colour in `data/products.json`:
 
-To add a product, put a `.glb` in `assets/models/` and set its `"model"` field in `data/products.json`. Name the material that should change colour `finish` or `fabric…`, and add a photo per colour named `<thumbnail>-<colour>.jpg`.
+- `"variant"`: a colour variant built into the model (the sofa)
+- `"textures"`: swaps in a pre-made texture for that wood stain or paint colour (`"original"` restores the model's own)
+- neither: tints the fabric directly (the armchair)
+
+Product photos in `assets/images/` are studio renders of the same models in every colour, so the photo changes with the swatch.
